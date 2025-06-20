@@ -1,7 +1,3 @@
-// document
-//   .getElementById("generate-par")
-//   .addEventListener("click", getCurrentTab);
-
 // async function getCurrentTab() {
 //   let queryOptions = { active: true, lastFocusedWindow: true }; // Focuses on the user's currently focused window
 //   let [tab] = await chrome.tabs.query(queryOptions); // Queries for active tabs in the current window
@@ -13,21 +9,24 @@
 //   console.log(await getCurrentTab()); // Logs information about the current tab
 // });
 
-// function grabText() {
-//   return document.body.innerText; // Get all text content
-// }
-
-// chrome.runtime.sendMessage({ text: grabText() }); // Send text back to the background script
-
-async function sayHello() {
+async function grabText() {
   let [tab] = await chrome.tabs.query({ active: true });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
     func: () => {
-      document.body.style.backgroundColor = "red";
-      console.log(document.body.outerHTML);
+      // document.body.style.backgroundColor = "red";
+      // const tabHtml = document.body.outerHTML;
+      const aTags = document.body.getElementsByTagName("a");
+      const links = [];
+      for (let i = 0; i < aTags.length; i++) {
+        links.push(aTags[i].getAttribute("href"));
+      }
+      console.log("All links:", links);
+      const pattern = /^https:\/\/onepipeline\.cloud/i;
+      const artemisLink = links.filter((link) => pattern.test(link));
+      console.log("Artemis Link:", artemisLink);
     },
   });
 }
 
-document.getElementById("generate-par").addEventListener("click", sayHello);
+document.getElementById("generate-par").addEventListener("click", grabText);
