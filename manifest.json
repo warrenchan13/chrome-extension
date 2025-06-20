@@ -1,0 +1,16 @@
+{
+  "name": "PAR Approval Text Generator",
+  "version": "1.0",
+  "manifest_version": 3,
+  "description": "Copy Artemis PAR release link, change log, PRs, and PR creators to clipboard",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "par.png"
+  },
+  "permissions": ["tabs", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "host_permissions": ["http://*/*", "https://*/*/"]
+}
