@@ -23,7 +23,7 @@ async function grabText() {
       }
       console.log("All links:", links);
       const pattern = /^https:\/\/onepipeline\.cloud/i;
-      const artemisLink = links.filter((link) => pattern.test(link));
+      const artemisLink = links.filter((link) => pattern.test(link)).join("");
       console.log("Artemis Link:", artemisLink);
     },
   });
